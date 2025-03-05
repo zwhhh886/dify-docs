@@ -26,3 +26,10 @@ docker run --rm -d -p 8081:8080 -v "${PWD}/api/core/tools/provider/builtin/searx
 ## 3. 使用 SearXNG
 
 在 `工具 > SearXNG > 去认证` 中填写访问地址，建立 Dify 服务与 SearXNG 服务的连接。SearXNG 的 Docker 内网地址一般是 `http://host.docker.internal:8081`。
+认证时会遇到权限不足的问题，需要修改SearXNG docker的settings文件，目录在 `dify/api/core/tools/provider/builtin/searxng/docker/` ，打开 settings.yml文件，找到formats，在html后面增加一个json，如下
+```yml
+  formats:
+    - html
+    - json
+```
+修改后重启SearXNG docker，再次认证即可成功。
